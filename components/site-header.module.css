@@ -1,0 +1,42 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  border-bottom: 2px solid transparent;
+  background-color: transparent;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.scrolled {
+  border-color: #e3edf5;
+  background-color: white;
+}
+
+/* The surface also responds to scrolling before hydration or without JavaScript. */
+@supports (animation-timeline: scroll()) {
+  .header {
+    animation: reveal-header-surface linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0px 40px;
+  }
+}
+
+@keyframes reveal-header-surface {
+  from {
+    border-color: transparent;
+    background-color: transparent;
+  }
+  to {
+    border-color: #e3edf5;
+    background-color: white;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    transition: none;
+    animation-timing-function: steps(1, end);
+  }
+}

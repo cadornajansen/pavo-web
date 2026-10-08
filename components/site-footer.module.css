@@ -1,0 +1,107 @@
+.illustration {
+  position: relative;
+  height: 288px;
+  max-width: 1040px;
+  margin: 40px auto 0;
+}
+
+.phone {
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  width: 192px;
+  height: 298px;
+  border: 7px solid #16375b;
+  border-radius: 36px;
+  background: #e6f7ff;
+  box-shadow: 7px 7px 0 #b2dbf3;
+  transform: translateX(-50%) rotate(-7deg);
+}
+
+.phoneSpeaker {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 60px;
+  height: 12px;
+  border-radius: 99px;
+  background: #16375b;
+  transform: translateX(-50%);
+}
+
+.mascot {
+  position: absolute;
+  top: 40px;
+  left: -18%;
+  width: 135%;
+  max-width: none;
+  height: auto;
+}
+
+.phoneLesson {
+  position: absolute;
+  right: 14px;
+  bottom: 52px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 2px solid #c2e5f8;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 3px 0 #c2e5f8;
+}
+
+.books {
+  position: absolute;
+  bottom: 130px;
+  left: max(0px, calc(50% - 230px));
+  width: 88px;
+  height: auto;
+  transform: rotate(-9deg);
+}
+
+.cap {
+  position: absolute;
+  right: max(-16px, calc(50% - 238px));
+  bottom: 120px;
+  width: 112px;
+  height: auto;
+}
+
+@media (min-width: 640px) {
+  .illustration {
+    height: 340px;
+    margin-top: 48px;
+  }
+
+  .phone {
+    bottom: -32px;
+    width: 226px;
+    height: 348px;
+    border-width: 8px;
+    border-radius: 42px;
+  }
+
+  .mascot {
+    top: 45px;
+  }
+
+  .phoneLesson {
+    bottom: 56px;
+    padding: 14px;
+  }
+
+  .books {
+    bottom: 86px;
+    left: calc(50% - 340px);
+    width: 150px;
+  }
+
+  .cap {
+    right: calc(50% - 338px);
+    bottom: 144px;
+    width: 160px;
+  }
+}

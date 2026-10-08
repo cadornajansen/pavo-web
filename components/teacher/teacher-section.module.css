@@ -1,0 +1,43 @@
+.transitionGroup {
+  position: relative;
+  isolation: isolate;
+  timeline-scope: --teacher-entry;
+}
+
+.section {
+  view-timeline: --teacher-entry block;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #d9f3ff 160px,
+    #d9f3ff calc(100% - 100px),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* One background spans both sections, so their shared edge never changes color. */
+@supports (animation-timeline: view()) and (timeline-scope: --teacher-entry) {
+  @media (prefers-reduced-motion: no-preference) {
+    .background {
+      animation: arrive-in-blue linear both;
+      animation-timeline: --teacher-entry;
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+@keyframes arrive-in-blue {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -12,28 +12,29 @@ pnpm dev
 
 ## Prepare a release
 
-Set `SITE_URL` to the real public HTTPS origin in the deployment environment
-**before building**. See `.env.example`. Set `SITE_INDEXABLE=false` on self-hosted
-staging; Vercel preview deployments are automatically excluded from indexing.
-Without a domain, the site builds as a noindex preview with an empty sitemap.
-Never deploy that preview build as the public release: set the domain and rebuild.
+The public origin defaults to `https://www.trypavo.cloud`. Override `SITE_URL`
+before building only when the domain changes. See `.env.example`.
+Set `SITE_INDEXABLE=false` on self-hosted staging. Development and Vercel preview
+deployments automatically use noindex and an empty sitemap.
 
 ```powershell
 pnpm lint
 pnpm typecheck
 pnpm audit --prod
 pnpm build
-pnpm start --port 3001
+pnpm start --port 3000
 ```
 
-In a second terminal, check the preview:
+Stop the development server before starting production on the same port.
+In a second terminal, check the production build:
 
 ```powershell
-node scripts/check-release.mjs http://localhost:3001
+$env:EXPECT_INDEXABLE="true"
+node scripts/check-release.mjs http://localhost:3000
 ```
 
-For the configured public build, set `SITE_URL` to the same real origin and
-`EXPECT_INDEXABLE=true` in the checking terminal, then run the same command.
+If overriding the public origin, use the same `SITE_URL` in the checking terminal.
+For development or staging checks, omit `EXPECT_INDEXABLE`.
 It checks HTML metadata, canonical URL, robots, sitemap, structured data, icons,
 social image, anchor targets, response headers, and the 404 response.
 

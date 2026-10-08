@@ -1,0 +1,60 @@
+.background {
+  container-type: size;
+}
+
+/* One coordinate system keeps the clouds and ridge aligned at every crop. */
+.landscape {
+  position: absolute;
+  bottom: 0;
+  left: 78%;
+  width: max(100cqw, 150cqh);
+  height: max(100cqh, 66.6667cqw);
+  transform: translateX(-78%);
+}
+
+.clouds {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.distant,
+.high,
+.near {
+  animation: cloud-drift 48s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.high {
+  animation-duration: 64s;
+  animation-delay: -18s;
+}
+.near {
+  animation-duration: 36s;
+  animation-direction: alternate-reverse;
+}
+.clouds[data-active="true"] > g,
+.clouds[data-active="true"] > g > g {
+  animation-play-state: running;
+}
+
+@keyframes cloud-drift {
+  from {
+    transform: translateX(-65px);
+  }
+  to {
+    transform: translateX(100px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .landscape {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .clouds g {
+    animation: none;
+  }
+}

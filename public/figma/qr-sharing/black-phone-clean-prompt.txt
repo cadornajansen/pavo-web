@@ -1,0 +1,6 @@
+Use case: precise-object-edit.
+Asset type: transparent phone mockup for a responsive website, with scan beam later animated in React.
+Input image: the attached black-phone.png is the sole edit target.
+Primary request: Remove ONLY the bright white horizontal scanning beam and its cyan/blue emitted glow from across the QR code in the center of the screen. Reconstruct the small area of QR code and the gray camera preview hidden by that beam. Make it look as if the beam never existed.
+Strict invariants: Keep the entire phone, its exact perspective/tilt, overall position, silhouette, framing, aspect ratio, transparent padding, navy blue metal case, lighting, glass, status icons, buttons, screen layout and all text unchanged. Preserve all FOUR CYAN CORNER BRACKETS around the QR preview exactly. Keep “9:41”, “Scan QR code”, and “Position the QR code within the frame” in their original locations and type. No new illustration, no new backdrop, no drop shadow, no second phone, no additional cropping, no zoom, no changed rotation. Preserve genuine alpha transparency around the phone, not a black or white background.
+Only the beam and its halo are to disappear. Make the edited phone as crisp and clean as the source.

@@ -1,9 +1,9 @@
 import assert from "node:assert/strict"
 
-const base = new URL(process.argv[2] || "http://localhost:3001")
-const expectedOrigin = process.env.SITE_URL
-  ? new URL(process.env.SITE_URL).origin
-  : null
+const base = new URL(process.argv[2] || "http://localhost:3000")
+const expectedOrigin = new URL(
+  process.env.SITE_URL || "https://www.trypavo.cloud"
+).origin
 const expectIndex = process.env.EXPECT_INDEXABLE === "true"
 
 async function get(path, contentType) {
@@ -23,7 +23,7 @@ assert.equal(response.headers.get("x-content-type-options"), "nosniff")
 assert.equal(response.headers.get("x-powered-by"), null)
 assert.equal((html.match(/<h1\b/g) || []).length, 1)
 assert.ok(html.includes("summary_large_image"))
-assert.ok(html.includes("/social/pavo-og.jpg"))
+assert.ok(html.includes(`${expectedOrigin}/social/pavo-share-v2.jpg`))
 assert.ok(html.includes('content="1200"') && html.includes('content="630"'))
 assert.ok(
   !html.includes("Illustrative lesson example") &&
@@ -31,7 +31,8 @@ assert.ok(
 )
 assert.ok(
   !html.includes("Pause PAVO animation") &&
-    !html.includes("Play PAVO animation")
+    !html.includes("Play PAVO animation") &&
+    !html.includes("Pause animation")
 )
 const robotsMeta = html.match(/<meta name="robots" content="([^"]+)"/u)?.[1]
 assert.equal(robotsMeta, expectIndex ? "index, follow" : "noindex, nofollow")
@@ -46,7 +47,9 @@ if (expectIndex) {
     expectedOrigin,
     "Pass SITE_URL when checking an indexable deployment"
   )
-  assert.ok(html.includes(`rel="canonical" href="${expectedOrigin}/"`))
+  const canonical = html.match(/rel="canonical" href="([^"]+)"/u)?.[1]
+  assert.ok(canonical, "Missing canonical URL")
+  assert.equal(new URL(canonical).href, `${expectedOrigin}/`)
   assert.ok(html.includes("application/ld+json"))
   assert.ok(robots.includes(`Sitemap: ${expectedOrigin}/sitemap.xml`))
   assert.ok(sitemap.includes(`<loc>${expectedOrigin}/</loc>`))
@@ -63,7 +66,7 @@ for (const size of [16, 32, 48])
   await get(`/icons/icon-${size}.png`, "image/png")
 await get("/apple-icon.png", "image/png")
 await get("/favicon.ico", "image/")
-await get("/social/pavo-og.jpg", "image/jpeg")
+await get("/social/pavo-share-v2.jpg", "image/jpeg")
 await get("/screens/library.webp", "image/webp")
 assert.equal(
   (await fetch(new URL("/missing-page-release-check", base))).status,

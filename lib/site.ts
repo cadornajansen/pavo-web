@@ -1,6 +1,5 @@
-function readSiteUrl(): URL | undefined {
-  const value = process.env.SITE_URL?.trim()
-  if (!value) return undefined
+function readSiteUrl(): URL {
+  const value = process.env.SITE_URL?.trim() || "https://www.trypavo.cloud"
   const url = new URL(value)
   if (
     url.protocol !== "https:" ||
